@@ -35,7 +35,8 @@ def build_model(lstm_hidden_size=256, num_classes=2, dropout_rate=0.5):
         return model
 
 # Load model
-model_path = r'COMBINED_best_Phase1.keras'
+model_path = keras.models.load_model('COMBINED_best_Phase1.keras')
+
 model = build_model()
 
 # Compile the model before loading weights
