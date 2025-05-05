@@ -35,7 +35,17 @@ def build_model(lstm_hidden_size=256, num_classes=2, dropout_rate=0.5):
         return model
 
 # Load model
-model_path = keras.models.load_model('COMBINED_best_Phase1.keras')
+model_path = 'COMBINED_best_Phase1.keras'
+try:
+    loaded_model = tf.keras.models.load_model(model_path)
+    model.set_weights(loaded_model.get_weights())
+except Exception as e:
+    try:
+        model.load_weights(model_path, by_name=True, skip_mismatch=True)
+    except Exception as e:
+        st.error(f"Error loading model: {str(e)}")
+        st.stop()
+
 
 model = build_model()
 
