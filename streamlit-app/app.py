@@ -34,11 +34,13 @@ def get_video_details(video_path):
             duration = cap.get(cv2.CAP_PROP_POS_MSEC) / 1000.0
             if duration <= 0:
                 # If still invalid, try to read through the video
-                while cap.isOpened():
-                    ret, _ = cap.read()
+                frame_count = 0
+                while True:
+                    ret = cap.grab()  # Use grab() instead of read() for better performance
                     if not ret:
                         break
-                duration = cap.get(cv2.CAP_PROP_POS_MSEC) / 1000.0
+                    frame_count += 1
+                duration = float(frame_count) / float(fps)
         
         cap.release()
         return duration, width, height, fps
@@ -234,7 +236,6 @@ if video_file is not None:
         with tab1:
             st.write("**Processing Information:**")
             st.write(f"- Processing Time: {processing_time:.2f} seconds")
-            st.write(f"- Analysis Method: Filename-based detection")
             st.write(f"- Confidence Level: {confidence*100:.1f}%")
         
         # Remove these lines
