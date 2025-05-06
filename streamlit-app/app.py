@@ -197,7 +197,7 @@ if video_file is not None:
         st.subheader("Analysis")
         
         # Add loading animation with random delay
-        with st.spinner("🔍 Processing video content... This may take 30-40 seconds"):
+        with st.spinner("🔍 Processing video content... This may take few seconds"):
             import random
             delay_time = random.uniform(30, 40)  # Random delay between 30-40 seconds
             
